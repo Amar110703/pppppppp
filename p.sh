@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set token sebagai variabel environment (gunakan perintah 'export' untuk variabel environment)
-export EXPECTED_HASH="dfb62b8af92a6e72c9949ae1b2f8f9a1f727bfc24ed6b69f642c36e22145a0c1"
+export EXPECTED_HASH="c7216c2b731d91e9d361e3f71c0e8d9f562c4ef6b29c683d52a9f4a91e95e376  -"
 
 echo "Masukkan token:"
 read token
