@@ -1,17 +1,21 @@
 #!/bin/bash
 
-# Generate random data
-RANDOM_DATA=$(openssl rand -hex 16)
+# Set token sebagai variabel environment (gunakan perintah 'export' untuk variabel environment)
+export EXPECTED_HASH="dfb62b8af92a6e72c9949ae1b2f8f9a1f727bfc24ed6b69f642c36e22145a0c1"
 
-# Encrypt the random data using AES-256-CBC
-ENCRYPTED_DATA=$(echo "$RANDOM_DATA" | openssl enc -aes-256-cbc -pass pass:marz -base64)
+echo "Masukkan token:"
+read token
 
-# Token is the encrypted data
-TOKEN="$ENCRYPTED_DATA"
+# Meng-hash token yang dimasukkan oleh pengguna
+hashed_token=$(echo -n "$token" | sha256sum | awk '{print $1}')
 
-# Output the token (for demonstration purposes)
-echo "Generated Token: $TOKEN"
+# Membandingkan hash yang dihasilkan dengan hash yang diharapkan
+if [ "$hashed_token" = "$EXPECTED_HASH" ]; then
+    echo "Token valid. Akses diberikan."
+    # Tambahkan perintah atau skrip yang ingin dijalankan jika token valid di sini
+else
+    echo "Token tidak valid. Akses ditolak."
+fi
 
-# Example of how to decrypt token (for demonstration purposes)
-DECRYPTED_DATA=$(echo "$TOKEN" | openssl enc -d -aes-256-cbc -pass pass:marz -base64)
-echo "Decrypted Data: $DECRYPTED_DATA"
+# Hapus variabel environment setelah digunakan (opsional)
+unset EXPECTED_HASH
